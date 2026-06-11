@@ -35,11 +35,14 @@ def parse_ports(arg) -> ports_range:
     ranges = []
     for token in parts:
         endpoints = token.split("-")
-        
-        if len(endpoints) != 2:
+    
+        if len(endpoints) > 2:
             raise ValueError(f"invalid range token: {token!r}")
         
-        start, end = int(endpoints[0]), int(endpoints[1])
+        if len(endpoints) == 2:
+            start, end = int(endpoints[0]), int(endpoints[1])
+        else:
+            start, end = int(endpoints[0]), int(endpoints[0])
         
         if not valid(start) or not valid(end):
             raise ValueError(f"port out of range: {start}-{end}")
