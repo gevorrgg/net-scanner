@@ -1,3 +1,2 @@
 ping3
-scapy
 psutil
