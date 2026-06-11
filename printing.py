@@ -43,9 +43,9 @@ Options:
     --ports <ports>
         examples:
             --ports 22
-            --ports 22,80,443
+            --ports 22 80 443
             --ports 1-1024
-            --ports 22,80-90,443
+            --ports 22 80-90 443
 
     --mode <mode>
         available:
