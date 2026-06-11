@@ -1,4 +1,3 @@
-# enumerable class
 class ports_range:
     def __init__(self, ranges=None, ports_set=None):
         self.ranges = ranges
@@ -10,55 +9,44 @@ class ports_range:
                 yield p
             return
 
-        for start, end in self.ranges:
+        for start, end in self.ranges:   # expects list of (start, end) tuples
             for p in range(start, end + 1):
                 yield p
 
+def valid(port):
+    return 0 <= port <= 65535
+
 def parse_ports(arg) -> ports_range:
-    parts = [p.strip() for p in arg.split(" ")] 
+    parts = [p.strip() for p in arg.split(" ")]
 
     has_range = any("-" in p for p in parts)
 
-    # MODE 1: SET (если нет диапазонов)
+    # MODE 1: SET (if no range)
     if not has_range:
         ports = set()
-
         for p in parts:
             val = int(p)
-
-            if val < 0 or val > 65535:
+            if not valid(val):
                 raise ValueError("port out of range")
-
             ports.add(val)
-
         return ports_range(ports_set=ports)
 
-    # MODE 2: RANGE
+    # MODE 2: RANGE(S) — each token is "start-end"
     ranges = []
-
-
-    for p in parts:
-        if "-" in p:
-            start, end = p.split("-", 1)
-
-            start = int(start.strip())
-            end = int(end.strip())
-
-            if start > end:
-                raise ValueError("invalid range")
-
-            if start < 0 or end > 65535:
-                raise ValueError("port out of range")
-
-            ranges.append((start, end))
-
-        else:
-            val = int(p)
-
-            if val < 0 or val > 65535:
-                raise ValueError("port out of range")
-
-            ranges.append((val, val))
+    for token in parts:
+        endpoints = token.split("-")
+        
+        if len(endpoints) != 2:
+            raise ValueError(f"invalid range token: {token!r}")
+        
+        start, end = int(endpoints[0]), int(endpoints[1])
+        
+        if not valid(start) or not valid(end):
+            raise ValueError(f"port out of range: {start}-{end}")
+        if start > end:
+            raise ValueError(f"range start exceeds end: {start}-{end}")
+        
+        ranges.append((start, end))   # store as tuple, matching __iter__
 
     return ports_range(ranges=ranges)
 

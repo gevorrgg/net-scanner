@@ -17,11 +17,10 @@ def print_scan_results(results):
 
         alive_state = alive(res)
 
-        print(f"Alive   : {alive_state}")
+        print(f" Alive  : {alive_state}")
 
-        #print(f"  ARP  : {res['arp_reachable']}")
         print(f"  ICMP  : {res['icmp_reachable']}")
-        print(f"  TCP   : {res['tcp_reachable']}")
+        print(f"   TCP  : {res['tcp_reachable']}")
 
         if res["open_ports"]:
             print(f"  Open ports: {', '.join(map(str, res['open_ports']))}")

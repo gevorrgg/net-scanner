@@ -67,12 +67,14 @@ def parse_args(args):
                 flag_setter(scan_configs, next_args)
             except Exception:
                 print(f"network scanner: unexpected value '{next_args}'")
+                raise ValueError
         else: # targets
             
             try:
                 target_ranges.append(parse_targets(args[i]))
             except Exception:
                 print(f"network scanner: unexpected value '{args[i]}'")
+                raise ValueError
 
             i += 1
 
