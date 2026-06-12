@@ -1,4 +1,4 @@
-# Net Scanner
+ll# Net Scanner
 
 A multithreaded TCP port scanner written in Python for network scanning and educational purposes.
 
@@ -26,9 +26,8 @@ It is designed for learning networking concepts, concurrency, and building CLI t
 ## Requirements
 
 - Python 3.8+
-
-ping3
-
+- ping3
+- psutil
 
 ---
 
