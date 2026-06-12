@@ -27,7 +27,8 @@ It is designed for learning networking concepts, concurrency, and building CLI t
 
 - Python 3.8+
 
-No external dependencies required (standard library only).
+ping3
+
 
 ---
 
